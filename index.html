@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>Formulario/Examen</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="css/normalize.css">
+ <!--<link rel="stylesheet" href="css/material.min.css">-->
+ <link rel='stylesheet' media='screen and (min-width: 961px)' href='css/d.css'>
+ <link rel='stylesheet' media='screen and (max-width: 960px)' href='css/m.css'>
+
+
+<script src='js/questions.js'></script>
+
+</head>
+<body>
+
+  <div id="logo">
+
+    <h1 id="tituloExamen">Universidad Borja Moll</h1>
+    <h2 id="slogan">Si no estás estudiando... ¡Estás empeorando!</h2>
+    <h4 id="direccion">Dirección: Calle Corocos, 20B, 07014</h4>
+    <h4 id="telefono">Teléfono: 971458080</h4>
+    <h4 id="poblacion">Población: Palma De Mallorca</h4>
+
+    
+
+	     <img id="logoT" src="img/logoNuevo.png">
+
+   
+
+  </div>
+     
+   
+     
+   <div id="contenedorFormulario">
+
+      <h2 id="datos">Rellena tus datos personales</h2>
+      <form action="" class="formulario" name="formularioRegistro"   method="post">
+          <div id="OrdenarFormulario">
+              <div class="inputGroup">
+
+                  <input type="text" id="nombre" name="nombre" placeholder="Nombre">
+        
+              </div>
+              <div class="inputGroup">
+
+                  <input type="email" id="email" name="email" placeholder="E-mail">
+        
+              </div>
+              <div class="inputGroup">
+                  <input type="password" id="pass" name="pass" placeholder="Contraseña">
+       
+              </div>
+              <div class="inputGroup">
+                  <input type="password" id="pass2" name="pass2" placeholder="Repetir contraseña">
+       
+              </div>
+              <div class="inputGroupradio">
+                  <input type="radio" name="sexo" id="hombre" value="Hombre">
+                  <label for="hombre" >Hombre</label>
+
+                  <input type="radio" name="sexo" id="mujer" value="Mujer">
+                  <label for="mujer" >Mujer</label>
+              </div>
+              </div>
+              <div class="inputGroupcheckbox">
+                  <input type="checkbox" name="Terminos" id="terminos" value="true">
+                  <label for="terminos">Acepto los términos y condiciones</label>
+                  <a href="#" onclick="ocultarMenu();"><button id="registrar">Registrar</a>
+              </div>
+      </form>
+  </div>
+  <div id="instrucciones">
+    <h5>Bienvenido a la prueba de acceso<br> de la Universidad Borja Moll</h5>
+    <h6 id="parrafo">Somos una Universidad creativa, por eso buscamos a los mejores.<br> Si eres uno de ellos, 
+        estaremos encantados de acogerte en nuestro equipo.<br>Para saber si estás entre los elegidos antes debes realizar una simple prueba.
+        <br>¡Tienes que sacar más de un 7 en nuestro examen tipo test!<br>Rellena el formulario para facilitarnos tus datos</h6>
+    <a href="#" onclick="ocultarBienvenida();"><button id="comenzar">Comenzar</button></a>
+  </div>
+<!-- Pregunta Número 1 -->
+  <form id='myform'>
+      <h3 id='tituloRadio'></h3>
+      <div id='radioDiv'></div>
+      <br><br>
+ <!-- Pregunta Número 2 -->
+      <h3 id='tituloRadio1'></h3>
+      <div id='radioDiv1'></div>
+      <br><br>
+<!-- Pregunta Número 3 -->
+      <h3 id='tituloCheckbox'></h3>
+      <div id='checkboxDiv'></div>
+      <br><br>
+ <!-- Pregunta Número 4 -->
+      <h3 id='tituloCheckbox1' ></h3>
+      <div id='checkboxDiv1'></div>
+      <br><br>
+ <!-- Pregunta Número 5 -->
+
+      <h3 id='tituloInput' ></h3>
+          <input id='num' type='number'  type="text" pattern="-?[0-9]*(\.[0-9]+)?">
+        <br><br>
+ <!-- Pregunta Número 6 -->
+      <h3 id='tituloInput1'></h3>
+          <input id='num1' type='number'  type="text" pattern="-?[0-9]*(\.[0-9]+)?">
+      <br><br>
+
+<!-- Pregunta Número 7 -->
+      <h3 id='tituloSelect'></h3>
+          <select id='sel'>
+              <option  selected value="-1">Selecciona una...</option>
+          </select>
+      <br><br>
+<!-- Pregunta Número 8 -->
+      <h3 id='tituloSelect1'></h3>
+          <select id='sel1'>
+              <option  selected value="-2">Selecciona una...</option>
+          </select>
+      <br><br>
+ <!--Pregunta Número 9 -->
+      <h3 id='tituloSelectMultiple' ></h3>
+          <select multiple id='multiple'>
+  <!--<option selected value="-1">Selecciona una...</option>-->
+          </select>
+      <br><br>
+ <!-- Pregunta Número 10 -->
+      <h3 id='tituloSelectMultiple1'></h3>
+          <select multiple id='multiple1'>
+  <option selected value="-1">Selecciona una...</option>
+          </select>
+      <br><br>
+
+      <a href="#" onclick="ocultarFormulario();"><input id="corregir" type='submit' value='Corregir'></a>
+  </form>
+
+  <div id='resultadosDiv'>
+  
+  </div>
+
+</body>
+
+</html>
