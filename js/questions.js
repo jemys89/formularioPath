@@ -146,12 +146,9 @@ function gestionarXml(dadesXml){
 
  //SELECT2 pregunta 8
  var tituloSelect=xmlDoc.getElementsByTagName("title")[7].innerHTML;
- var opcionesSelect1 = [];
- var nopt = xmlDoc.getElementById("jdos_008").getElementsByTagName('options').length;
-  for (i = 0; i < nopt; i++) { 
-    opcionesSelect1[i] = xmlDoc.getElementById("jdos_008").getElementsByTagName('options')[i].innerHTML;
- }
- ponerDatosSelectHtml1(tituloSelect,opcionesSelect1);
+ var xpath="/questions/question[@id='jdos_008']/options";
+ var nodesSelect1 = xmlDoc.evaluate(xpath, xmlDoc, null, XPathResult.ANY_TYPE, null);
+ ponerDatosSelectHtml1(tituloSelect,nodesSelect1);
  respuestaSelect2=parseInt(xmlDoc.getElementsByTagName("answer")[8].innerHTML);
  
 
@@ -339,15 +336,18 @@ function ponerDatosSelectHtml(t,nodes){
 
 
 //pregunta 8
-function ponerDatosSelectHtml1(t,opt){
+function ponerDatosSelectHtml1(t,nodes){
   document.getElementById("tituloSelect1").innerHTML=t;
   var select = document.getElementsByTagName("select")[1];
-  for (i = 0; i < opt.length; i++) { 
-    var option = document.createElement("option");
-    option.text = opt[i];
-    option.value=i+1;
-    select.options.add(option);
- }  
+  var result = nodes.iterateNext();
+  i=0;
+  while (result) {
+   var option = document.createElement("option");
+   option.text = result.innerHTML;
+   option.value=i+1; i++;
+   select.options.add(option);
+   result = nodes.iterateNext();
+  }  
 }
 
 
