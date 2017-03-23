@@ -14,7 +14,8 @@ var respuestasMultiple2=[];
 
 var nota = 0.0; 
 
-
+var xmlDoc = null; //global, para modificarlo y serializarlo (y sacarlo por pantalla)
+var xslDoc = null;
 
 window.onload = function(){
 //Corregir
@@ -48,6 +49,16 @@ window.onload = function(){
  xhttp.open("GET", "xml/preguntas.xml", true);
  xhttp.send();
 
+/*var xhttp2 = new XMLHttpRequest();
+ xhttp2.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+   xslDoc=this.responseXML;
+  }
+ };
+ xhttp2.open("GET", "xml/questions.xsl", true);
+ xhttp2.send();
+
+*/
  window.onmousedown = function (e) {
     var el = e.target;
     if (el.tagName.toLowerCase() == 'option' && el.parentNode.hasAttribute('multiple')) {
@@ -126,12 +137,9 @@ function gestionarXml(dadesXml){
 //SELECT pregunta 7
  //Recuperamos el título y las opciones, guardamos la respuesta correcta
  var tituloSelect=xmlDoc.getElementsByTagName("title")[6].innerHTML;
- var opcionesSelect = [];
- var nopt = xmlDoc.getElementById("jdos_007").getElementsByTagName('options').length;
-  for (i = 0; i < nopt; i++) { 
-    opcionesSelect[i] = xmlDoc.getElementById("jdos_007").getElementsByTagName('options')[i].innerHTML;
- }
- ponerDatosSelectHtml(tituloSelect,opcionesSelect);
+ var xpath="/questions/question[@id='jdos_007']/options";
+ var nodesSelect = xmlDoc.evaluate(xpath, xmlDoc, null, XPathResult.ANY_TYPE, null);
+ ponerDatosSelectHtml(tituloSelect,nodesSelect);
  respuestaSelect1=parseInt(xmlDoc.getElementsByTagName("answer")[7].innerHTML);
  
 
@@ -315,15 +323,18 @@ function ponerDatosInputHtml1(t){
 
 
 //pregunta 7
-function ponerDatosSelectHtml(t,opt){
+function ponerDatosSelectHtml(t,nodes){
   document.getElementById("tituloSelect").innerHTML=t;
   var select = document.getElementsByTagName("select")[0];
-  for (i = 0; i < opt.length; i++) { 
-    var option = document.createElement("option");
-    option.text = opt[i];
-    option.value=i+1;
-    select.options.add(option);
- }  
+  var result = nodes.iterateNext();
+  i=0;
+  while (result) {
+   var option = document.createElement("option");
+   option.text = result.innerHTML;
+   option.value=i+1; i++;
+   select.options.add(option);
+   result = nodes.iterateNext();
+  }  
 }
 
 
