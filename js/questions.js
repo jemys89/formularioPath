@@ -191,12 +191,9 @@ function gestionarXml(dadesXml){
 //CHECKBOX
  //Recuperamos el título y las opciones, guardamos las respuestas correctas
  var tituloCheckbox = xmlDoc.getElementsByTagName("title")[2].innerHTML;
- var opcionesCheckbox = [];
- var nopt = xmlDoc.getElementById("jdos_003").getElementsByTagName('options').length;
- for (i = 0; i < nopt; i++) { 
-    opcionesCheckbox[i]=xmlDoc.getElementById("jdos_003").getElementsByTagName('options')[i].innerHTML;
- }  
- ponerDatosCheckboxHtml(tituloCheckbox,opcionesCheckbox);
+ var xpath="/questions/question[@id='jdos_003']/options";
+ var nodesCheckbox = xmlDoc.evaluate(xpath, xmlDoc, null, XPathResult.ANY_TYPE, null); 
+ ponerDatosCheckboxHtml(tituloCheckbox,nodesCheckbox);
  var nres = xmlDoc.getElementById("jdos_003").getElementsByTagName('answer').length;
  for (i = 0; i < nres; i++) { 
   respuestasCheckbox1[i]=xmlDoc.getElementById("jdos_003").getElementsByTagName("answer")[i].innerHTML;
@@ -209,12 +206,9 @@ function gestionarXml(dadesXml){
 //CHECKBOX
  //Recuperamos el título y las opciones, guardamos las respuestas correctas
  var tituloCheckbox1 = xmlDoc.getElementsByTagName("title")[3].innerHTML;
- var opcionesCheckbox1 = [];
- var nopt = xmlDoc.getElementById("jdos_004").getElementsByTagName('options').length;
- for (i = 0; i < nopt; i++) { 
-    opcionesCheckbox1[i]=xmlDoc.getElementById("jdos_004").getElementsByTagName('options')[i].innerHTML;
- }  
- ponerDatosCheckboxHtml1(tituloCheckbox1,opcionesCheckbox1);
+ var xpath="/questions/question[@id='jdos_003']/options";
+ var nodesCheckbox1 = xmlDoc.evaluate(xpath, xmlDoc, null, XPathResult.ANY_TYPE, null); 
+ ponerDatosCheckboxHtml1(tituloCheckbox1,nodesCheckbox1);
  var nres = xmlDoc.getElementById("jdos_004").getElementsByTagName('answer').length;
  for (i = 0; i < nres; i++) { 
   respuestasCheckbox2[i]=xmlDoc.getElementById("jdos_004").getElementsByTagName("answer")[i].innerHTML;
@@ -266,43 +260,49 @@ function ponerDatosRadio1(t,opt){
 
 
 //Pregunta 3
-function ponerDatosCheckboxHtml(t,opt){
- var checkboxContainer1=document.getElementById('checkboxDiv');
+function ponerDatosCheckboxHtml(t,nodes){
+ var checkboxContainer=document.getElementById('checkboxDiv');
  document.getElementById('tituloCheckbox').innerHTML = t;
- for (i = 0; i < opt.length; i++) { 
-    var input = document.createElement("input");
-    var label = document.createElement("label");
-    label.innerHTML=opt[i];
-    label.setAttribute("for", "color_"+i);
-    input.type="checkbox";
-    input.name="coler";
-    input.id="coler_"+i;;    
-    checkboxContainer1.appendChild(input);
-    checkboxContainer1.appendChild(label);
-    checkboxContainer1.appendChild(document.createElement("br"));
- }  
+  var result = nodes.iterateNext();
+  i=0;
+  while (result) {
+   var input = document.createElement("input");
+   var label = document.createElement("label");   
+   label.innerHTML = result.innerHTML
+   label.setAttribute("for", "color_"+i);
+   input.type="checkbox";
+   input.name="color";
+   input.id="color_"+i; i++;
+   checkboxContainer.appendChild(input);
+   checkboxContainer.appendChild(label);
+   checkboxContainer.appendChild(document.createElement("br"));
+   result = nodes.iterateNext();
+  }    
 }
+
 
 
 
 //Pregunta 4
-function ponerDatosCheckboxHtml1(t,opt){
+function ponerDatosCheckboxHtml1(t,nodes){
  var checkboxContainer=document.getElementById('checkboxDiv1');
  document.getElementById('tituloCheckbox1').innerHTML = t;
- for (i = 0; i < opt.length; i++) { 
-    var input = document.createElement("input");
-    var label = document.createElement("label");
-    label.innerHTML=opt[i];
-    label.setAttribute("for", "coler1_"+i);
-    input.type="checkbox";
-    input.name="coler1";
-    input.id="coler1_"+i;;   
-    checkboxContainer.appendChild(input);
-    checkboxContainer.appendChild(label);
-    checkboxContainer.appendChild(document.createElement("br"));
- }  
+  var result = nodes.iterateNext();
+  i=0;
+  while (result) {
+   var input = document.createElement("input");
+   var label = document.createElement("label");   
+   label.innerHTML = result.innerHTML
+   label.setAttribute("for", "color1_"+i);
+   input.type="checkbox";
+   input.name="color1";
+   input.id="color1_"+i; i++;
+   checkboxContainer.appendChild(input);
+   checkboxContainer.appendChild(label);
+   checkboxContainer.appendChild(document.createElement("br"));
+   result = nodes.iterateNext();
+  }    
 }
-
 
 
 //Pregunta 5
@@ -503,53 +503,49 @@ function corregirRadio1(){
 
 
 function corregirCheckbox(){
-  var notaCheckbox = 0;
+  //Para cada opción mira si está checkeada, si está checkeada mira si es correcta y lo guarda en un array escorrecta[]
   var f=formElement;
   var escorrecta = [];
-  for (i = 0; i < f.coler.length; i++) {  
-    if (f.coler[i].checked) {
-      escorrecta[i]=false;     
-      for (j = 0; j < respuestasCheckbox1.length; j++) {
-        if (i==respuestasCheckbox1[j]) escorrecta[i]=true;
-      }
-      
-      if (escorrecta[i]) {
-        nota +=1.0/respuestasCheckbox1.length;  
-        notaCheckbox +=1.0/respuestasCheckbox1.length;
-      } else {
-        nota -=1.0/respuestasCheckbox1.length;    
-      }   
+  for (i = 0; i < f.color.length; i++) {  //"color" es el nombre asignado a todos los checkbox
+   if (f.color[i].checked) {
+    var useranswer = xmlDoc.createElement("useranswer");   
+    useranswer.innerHTML = i+1;
+    xmlDoc.getElementById("jdos_003").appendChild(useranswer);
+    escorrecta[i]=false;     
+    for (j = 0; j < respuestasCheckbox1.length; j++) {
+     if (i==respuestasCheckbox1[j]) escorrecta[i]=true;
     }
+    //si es correcta sumamos y ponemos mensaje, si no es correcta restamos y ponemos mensaje.
+    if (escorrecta[i]) {
+     nota +=1.0/respuestasCheckbox1.length;  //dividido por el número de respuestas correctas   
+    } else {
+     nota -=1.0/respuestasCheckbox1.length;  //dividido por el número de respuestas correctas   
+    }   
+   } 
   }
-  if (notaCheckbox != 1){
-    darRespuestaHtmlIncorrecta("Pregunta 3: incorrecta" )
-  } else darRespuestaHtml("Pregunta 3: ¡correcta!")
-  
 }
 
 function corregirCheckbox1(){
-  var notaCheckbox = 0;
+  //Para cada opción mira si está checkeada, si está checkeada mira si es correcta y lo guarda en un array escorrecta[]
   var f=formElement;
   var escorrecta = [];
-  for (i = 0; i < f.coler1.length; i++) {  
-    if (f.coler1[i].checked) {
-      escorrecta[i]=false;     
-      for (j = 0; j < respuestasCheckbox2.length; j++) {
-        if (i==respuestasCheckbox2[j]) escorrecta[i]=true;
-      }
-     
-      if (escorrecta[i]) {
-        nota +=1.0/respuestasCheckbox2.length;  
-        notaCheckbox +=1.0/respuestasCheckbox2.length;
-      } else {
-        nota -=1.0/respuestasCheckbox2.length;     
-      }   
+  for (i = 0; i < f.color1.length; i++) {  //"color" es el nombre asignado a todos los checkbox
+   if (f.color1[i].checked) {
+    var useranswer = xmlDoc.createElement("useranswer");   
+    useranswer.innerHTML = i+1;
+    xmlDoc.getElementById("jdos_003").appendChild(useranswer);
+    escorrecta[i]=false;     
+    for (j = 0; j < respuestasCheckbox2.length; j++) {
+     if (i==respuestasCheckbox2[j]) escorrecta[i]=true;
     }
+    //si es correcta sumamos y ponemos mensaje, si no es correcta restamos y ponemos mensaje.
+    if (escorrecta[i]) {
+     nota +=1.0/respuestasCheckbox2.length;  //dividido por el número de respuestas correctas   
+    } else {
+     nota -=1.0/respuestasCheckbox2.length;  //dividido por el número de respuestas correctas   
+    }   
+   } 
   }
-  if (notaCheckbox != 1){
-    darRespuestaHtmlIncorrecta("Pregunta 4: incorrecta" )
-  } else darRespuestaHtml("Pregunta 4: ¡correcta!")
-  
 }
 
 
