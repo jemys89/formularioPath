@@ -206,7 +206,7 @@ function gestionarXml(dadesXml){
 //CHECKBOX
  //Recuperamos el título y las opciones, guardamos las respuestas correctas
  var tituloCheckbox1 = xmlDoc.getElementsByTagName("title")[3].innerHTML;
- var xpath="/questions/question[@id='jdos_003']/options";
+ var xpath="/questions/question[@id='jdos_004']/options";
  var nodesCheckbox1 = xmlDoc.evaluate(xpath, xmlDoc, null, XPathResult.ANY_TYPE, null); 
  ponerDatosCheckboxHtml1(tituloCheckbox1,nodesCheckbox1);
  var nres = xmlDoc.getElementById("jdos_004").getElementsByTagName('answer').length;
@@ -505,12 +505,13 @@ function corregirRadio1(){
 function corregirCheckbox(){
   //Para cada opción mira si está checkeada, si está checkeada mira si es correcta y lo guarda en un array escorrecta[]
   var f=formElement;
+  var notaCheckbox = 0;
   var escorrecta = [];
   for (i = 0; i < f.color.length; i++) {  //"color" es el nombre asignado a todos los checkbox
    if (f.color[i].checked) {
-    var useranswer = xmlDoc.createElement("useranswer");   
-    useranswer.innerHTML = i+1;
-    xmlDoc.getElementById("jdos_003").appendChild(useranswer);
+    //var useranswer = xmlDoc.createElement("useranswer");   
+    //useranswer.innerHTML = i+1;
+    //xmlDoc.getElementById("jdos_003").appendChild(useranswer);
     escorrecta[i]=false;     
     for (j = 0; j < respuestasCheckbox1.length; j++) {
      if (i==respuestasCheckbox1[j]) escorrecta[i]=true;
@@ -522,18 +523,23 @@ function corregirCheckbox(){
      nota -=1.0/respuestasCheckbox1.length;  //dividido por el número de respuestas correctas   
     }   
    } 
+  }if(notaCheckbox != 1){
+  	darRespuestaHtmlIncorrecta("Pregunta 3: ¡incorrecta!")
+  }else{
+  	darRespuestaHtmlIncorrecta("Pregunta 3: ¡correcta!")
   }
 }
 
 function corregirCheckbox1(){
   //Para cada opción mira si está checkeada, si está checkeada mira si es correcta y lo guarda en un array escorrecta[]
   var f=formElement;
+  var notaCheckbox = 0;
   var escorrecta = [];
   for (i = 0; i < f.color1.length; i++) {  //"color" es el nombre asignado a todos los checkbox
    if (f.color1[i].checked) {
-    var useranswer = xmlDoc.createElement("useranswer");   
-    useranswer.innerHTML = i+1;
-    xmlDoc.getElementById("jdos_003").appendChild(useranswer);
+    //var useranswer = xmlDoc.createElement("useranswer");   
+    //useranswer.innerHTML = i+1;
+    //xmlDoc.getElementById("jdos_004").appendChild(useranswer);
     escorrecta[i]=false;     
     for (j = 0; j < respuestasCheckbox2.length; j++) {
      if (i==respuestasCheckbox2[j]) escorrecta[i]=true;
@@ -545,6 +551,10 @@ function corregirCheckbox1(){
      nota -=1.0/respuestasCheckbox2.length;  //dividido por el número de respuestas correctas   
     }   
    } 
+  }if(notaCheckbox != 1){
+  	darRespuestaHtmlIncorrecta("Pregunta 3: ¡incorrecta!")
+  }else{
+  	darRespuestaHtmlIncorrecta("Pregunta 3: ¡correcta!")
   }
 }
 
