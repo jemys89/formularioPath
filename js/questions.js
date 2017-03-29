@@ -682,6 +682,22 @@ function comprobar(){
    }
    for (i = 0; i < f.color.length; i++) {  //"color" es el nombre asignado a todos los checkbox
       if (f.color[i].checked) radioChecked2=true;
+   }if (!radioChecked) {
+    document.getElementById("tituloRadio").scrollIntoView();
+    alert("Debes elegir una opción en la primera pregunta");
+    return false;
+   }else if (!radioChecked2) {
+    document.getElementById("tituloRadio2").scrollIntoView();
+    alert("Debes elegir una opción en la segunda pregunta");
+    return false;
+   }if (!checked) {
+    document.getElementById("tituloCheckbox").scrollIntoView();
+    alert("Debes elegir una opción en la 3ª pregunta");
+    return false;
+   }else if (!checked2) {
+    document.getElementById("tituloCheckbox1").scrollIntoView();
+    alert("Debes elegir una opción en la 4ª pregunta");
+    return false;
    }
    if (document.getElementById("num").value =="") {
     //recomendamos focus para input y select "normal", scrollIntoView para el título de select múltiple, radio y checkbox
@@ -692,15 +708,7 @@ function comprobar(){
     document.getElementById("num").focus();
     alert("Responde la la pregunta 6");
     return false;
-   } if (!checked) {
-    document.getElementById("tituloCheckbox").scrollIntoView();
-    alert("Debes elegir una opción en la 3ª pregunta");
-    return false;
-   }if (!checked2) {
-    document.getElementById("tituloCheckbox1").scrollIntoView();
-    alert("Debes elegir una opción en la 4ª pregunta");
-    return false;
-   } 
+   }  
    else return true;
 
 }
