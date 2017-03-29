@@ -654,9 +654,9 @@ function ocultarMenu() {
     //document.getElementById("instrucciones").style.display="block";
 }
 function ocultarFormulario(){
-   
+    if(comprobar()){
     document.getElementById("myform").style.display="none";
-
+  }
     
 }
 function ocultarBienvenida() {
@@ -696,6 +696,11 @@ function comprobar(){
     document.getElementById("tituloCheckbox").scrollIntoView();
     alert("Debes elegir una opción en la 3ª pregunta");
     return false;
-   } else return true;
+   }if (!checked2) {
+    document.getElementById("tituloCheckbox1").scrollIntoView();
+    alert("Debes elegir una opción en la 4ª pregunta");
+    return false;
+   } 
+   else return true;
 
 }
