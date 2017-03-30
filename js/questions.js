@@ -705,10 +705,26 @@ function comprobar(){
     alert("Responde la pregunta 5");
     return false;
    } else if (document.getElementById("num1").value =="") {
-    document.getElementById("num").focus();
+    document.getElementById("num1").focus();
     alert("Responde la la pregunta 6");
     return false;
-   }  
+   }  else if (document.getElementById("sel").selectedIndex == 0){
+    alert("Responde la pregunta 7");
+    document.getElementById("sel").focus();
+    return false;
+  }  else if (document.getElementById("sel1").selectedIndex == 0){
+    alert("Responde la pregunta 8");
+    document.getElementById("sel1").focus();
+    return false;
+  }else if (document.getElementById("multiple").selectedIndex == -1){
+    alert("Responde la pregunta 9");
+    document.getElementById("multiple").scrollIntoView();
+    return false;
+  }else if (document.getElementById("multiple1").selectedIndex == 0){
+    alert("Responde la pregunta 10");
+    document.getElementById("multiple1").scrollIntoView();
+    return false;
+  }
    else return true;
 
 }
