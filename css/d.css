@@ -225,8 +225,9 @@ select,input{
     margin-bottom: 10%;
     margin-left: 15%;
     margin-right: 15%;
-    background-color: lightgray;
+    background-color: lightblue;
     padding: 3%;
+    font-size: 2vw;
     display: none;
 
 }

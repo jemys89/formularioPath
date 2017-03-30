@@ -6,11 +6,11 @@ body{
 	background: #EEEEEE;
 	font-family: 'Roboto', sans-serif;
 	top:60%;
-	font-size: 7vw;
+	font-size: 6vw;
 	/*width: 50%;*/
 	margin-top:35%;
 	/*position: absolute;*/
-	padding: 2%;
+	/*padding: 2%;*/
 	/*left: 13%;*/
 	z-index: 1;
 	display: none;
@@ -204,7 +204,7 @@ input,select{width:80%;
 	height: 70%;
 	position: relative;
 	background: aliceblue;
-	left: 5%;
+	/*left: 5%;*/
 	margin:4%;
 	padding:5%;
 	margin-top: 40%;
@@ -241,7 +241,7 @@ input,select{width:80%;
 	margin-top:45%;
 	margin-left: 15%;
 	top:20;
-	text-align: center;
+	/*text-align: center;*/
 	
 	/*border-radius: 10% 10% 10% 10%;*/
 

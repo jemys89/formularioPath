@@ -7,7 +7,10 @@
 <head>
 <style rel="stylesheet" type="text/css">
       table{
-            width:100%;border:1px solid
+            width:100%;
+            border:1px solid;
+            border-color: lightblack;
+
             }
       th{
             background-color:blue;
@@ -16,10 +19,13 @@
               border:1px solid;
               padding:2px;
               vertical-align:top;
+              font-family: 'Roboto', sans-serif;    
 
               }
       span{
-          color:green;padding-left:5px
+          color:green;
+          padding-left:5px;
+          
           }
       #x{
           color:red
@@ -27,7 +33,7 @@
 </style>
 </head>
 <body>
-  <h2>Corrección</h2>
+  <h2></h2>
   <table>
     <tr>
       <th>Pregunta</th>
